@@ -8,11 +8,11 @@
 #define TAG "ws"
 
 static paras_t mparas={
-    .ver=8;
+    .ver=8,
     .eq={
-        .aa=8;
-        .bb=9;
-        .gain={
+        .aa=8,
+        .bb=9,
+        .g={
             .value=25,
         },
     },
@@ -65,10 +65,7 @@ static void ws_proc(mg_conn_t *nc, void *data, int len)
         return;
         break;
         
-    }
-    
-    
-    
+    }  
 }
 
 static void ev_handler(mg_conn_t *nc, int ev, void *p)
@@ -83,7 +80,7 @@ static void ev_handler(mg_conn_t *nc, int ev, void *p)
 
         case MG_EV_WEBSOCKET_FRAME:
         {
-            ws_proc(conn, wm->data, wm->size);
+            ws_proc(nc, wm->data, wm->size);
         }
         break;
 
@@ -149,14 +146,14 @@ int ws_send(mg_conn_t *nc, int type, void *data, int len)
 {
     int l;
     
-    l = do_pack(data, len);
-    ws_write(conn, tmpbuf, l);
+    l = do_pack(type, data, len);
+    ws_write(nc, tmpbuf, l);
     
     return 0;
 }
 
 
-int ws_sendparas(mg_conn_t *nc)
+static int ws_send_paras(mg_conn_t *nc)
 {
     return ws_send(nc, TYPE_PARAS, (void*)&mparas, sizeof(paras_t));
 }

@@ -1,9 +1,9 @@
 #ifndef __DATA_H__
 #define __DATA_H__
 
-#include "type.h"
+#include "types.h"
 
-#define MAGIC   0xff8899aa
+#define MAGIC   0xffeebbaa
 
 #define IO_BT   (1<<0)
 #define IO_I2C  (1<<1)
@@ -28,29 +28,28 @@ typedef struct {
     s16 value;
 }gain_t;
 
-var eq_t={
+typedef struct {
     u8      aa;
     u8      bb;
     gain_t  g;
-};
+}eq_t;
 
-var setup_t={
+typedef struct {
     u8      lang;
     u16     cnt;
-};
+}setup_t;
 
-var paras_t={
+typedef struct {
     u8      ver;
     eq_t    eq;
     setup_t setup;
-};
-
+}paras_t;
 
 typedef struct {
     u32 magic;
-    u8  pack[4];
-    u8  itype;
-    u8  dtype;
+    u32 pack;
+    u32 itype;
+    u32 dtype;
     u32 dlen;
     u8  data[];
 }hdr_t;
