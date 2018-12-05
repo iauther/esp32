@@ -6638,6 +6638,28 @@ void mg_set_protocol_socks(struct mg_connection *c);
 /* Create socks tunnel for the client connection */
 struct mg_iface *mg_socks_mk_iface(struct mg_mgr *, const char *proxy_addr);
 
+
+// guohui added 2018/12/5
+#ifndef __MONGOOSE_H__
+#define __MONGOOSE_H__
+
+typedef struct mg_bind_opts             mg_bindopt_t;
+typedef struct mg_connect_opts          mg_connopt_t;
+typedef struct mg_serve_http_opts       mg_httpopt_t;
+
+typedef struct mg_connection            mg_conn_t;
+typedef struct mg_mgr                   mg_mgr_t;
+typedef struct mg_str                   mg_str_t;
+typedef struct websocket_message        mg_wsmsg_t;
+typedef struct http_message             mg_httpmsg_t;
+
+#endif
+
+
+
+
+
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
